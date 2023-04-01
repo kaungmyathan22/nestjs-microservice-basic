@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostInput } from './dto/create-post.input';
 import { Post } from './entities/post.entity';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class PostsService {
@@ -10,8 +11,8 @@ export class PostsService {
     return createPostInput;
   }
 
-  findAll () {
-    return this.posts;
+  findAll (user: User) {
+    return this.posts.filter(post => post.authorId === user.id);
   }
 
   findOne (id: string) {

@@ -1,4 +1,5 @@
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { CurrentUser } from './current-user.decorator';
 import { CreatePostInput } from './dto/create-post.input';
 import { Post } from './entities/post.entity';
 import { User } from './entities/user.entity';
@@ -14,8 +15,8 @@ export class PostsResolver {
   }
 
   @Query(() => [Post], { name: 'posts' })
-  findAll () {
-    return this.postsService.findAll();
+  findAll (@CurrentUser() user: User) {
+    return this.postsService.findAll(user);
   }
 
   @Query(() => Post, { name: 'post' })
