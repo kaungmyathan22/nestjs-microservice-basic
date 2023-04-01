@@ -1,10 +1,18 @@
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
-import { PostsController } from './posts.controller';
+import { GraphQLModule } from '@nestjs/graphql';
+import { PostsResolver } from './posts.resolver';
 import { PostsService } from './posts.service';
 
 @Module({
-  imports: [],
-  controllers: [PostsController],
-  providers: [PostsService],
+  imports: [
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: {
+        federation: 2
+      }
+    }),
+  ],
+  providers: [PostsResolver, PostsService]
 })
-export class PostsModule {}
+export class PostsModule { }
