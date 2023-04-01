@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { PostsResolver } from './posts.resolver';
 import { PostsService } from './posts.service';
+import { UsersResolver } from './users.resolver';
 
 @Module({
   imports: [
@@ -13,6 +14,6 @@ import { PostsService } from './posts.service';
       }
     }),
   ],
-  providers: [PostsResolver, PostsService]
+  providers: [PostsResolver, PostsService, UsersResolver]
 })
 export class PostsModule { }
